@@ -1,3 +1,0 @@
----
-nodenv_root: "{{ ansible_env.HOME }}/.nodenv"
-node_version: "18.0.0"
