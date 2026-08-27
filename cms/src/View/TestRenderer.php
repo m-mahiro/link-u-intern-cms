@@ -1,11 +1,20 @@
 <?php
 
+namespace Sakana\View;
+
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
 
-require_once dirname(__FILE__) . '/../vendor/autoload.php';
+class TestRenderer {
+    private $loader;
+    private $twig;
 
-$loader = new FilesystemLoader(dirname(__FILE__) . '/.');
-$twig = new Environment($loader);
+    public function __construct() {
+        $this->loader = new FilesystemLoader(dirname(__FILE__) . '/.');
+        $this->twig = new Environment($this->loader);
+    }
 
-echo $twig->render('Test.twig', ['data' => 'Hello, Twig']);
+    public function getPage($data): string {
+        return $this->twig->render('Test.twig', ['data' => $data]);
+    }
+}
