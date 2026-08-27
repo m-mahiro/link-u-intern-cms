@@ -2,5 +2,10 @@
     "require": {
         "robmorgan/phinx": "^0.16.12",
         "twig/twig": "^3.28"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sakana\\": "./"
+        }
     }
 }
