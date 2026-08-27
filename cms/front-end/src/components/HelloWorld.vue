@@ -4,9 +4,11 @@ import heroImg from '../assets/hero.png'
 import viteLogo from '../assets/vite.svg'
 import vueLogo from '../assets/vue.svg'
 
-const count = ref(0)
+const name = "HelloWorld";
+const data = window.data.component_data;
+
 </script>
 
 <template>
-  <el-button>Hello, Twig</el-button>
+  <el-button>{{ data }}</el-button>
 </template>
