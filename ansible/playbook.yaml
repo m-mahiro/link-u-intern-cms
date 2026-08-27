@@ -1,0 +1,16 @@
+---
+- hosts: all
+  become: true
+  pre_tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600  # ※1時間以内に更新済みならスキップ（高速化）
+  vars:
+    node_version: "18.0.0"
+  roles:
+    - nginx
+    - php
+    - mysql
+    - composer
+    - nodenv

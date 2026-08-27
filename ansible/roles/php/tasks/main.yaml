@@ -1,0 +1,16 @@
+---
+- name: Install PHP
+  become: yes
+  apt: pkg=php state=latest
+
+- name: Purge Apache2
+  become: yes
+  apt: pkg=apache2 state=absent purge=yes autoremove=yes
+
+- name: Install PHP FPM
+  become: yes
+  apt: pkg=php-fpm state=latest
+
+- name: Install Mysqli
+  become: yes
+  apt: pkg=php-mysqli state=latest

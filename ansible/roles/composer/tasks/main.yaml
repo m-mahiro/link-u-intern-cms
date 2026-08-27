@@ -1,0 +1,15 @@
+---
+
+- name: Install Composer and unzip
+  become: yes
+  apt:
+    pkg:
+      - composer
+      - unzip
+    state: latest
+
+- name: Install Phinx and Twig
+  community.general.composer:
+    command: require
+    arguments: robmorgan/phinx twig/twig
+    working_dir: /var/www/html

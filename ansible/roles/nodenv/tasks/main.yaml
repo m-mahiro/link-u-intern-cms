@@ -1,0 +1,46 @@
+---
+- name: 必要なビルド依存パッケージをインストール
+  become: true
+  ansible.builtin.apt:
+    name:
+      - git
+      - build-essential
+      - libssl-dev
+    state: present
+    update_cache: true
+
+- name: nodenv installerで一括インストール
+  become: false
+  ansible.builtin.shell: |
+    curl -fsSL https://github.com/nodenv/nodenv-installer/raw/master/bin/nodenv-installer | bash
+  args:
+    creates: "/home/vagrant/.nodenv/bin/nodenv"
+
+- name: .bashrcにPATHとinit設定を追加
+  become: false
+  ansible.builtin.blockinfile:
+    path: "/home/vagrant/.bashrc"
+    marker: "# {mark} ANSIBLE MANAGED BLOCK (nodenv)"
+    block: |
+      export PATH="/home/vagrant/.nodenv/bin:$PATH"
+      eval "$(nodenv init -)"
+
+- name: 指定バージョンがインストール済みか確認
+  become: false
+  ansible.builtin.command: "/home/vagrant/.nodenv/bin/nodenv versions --bare"
+  register: nodenv_installed_versions
+  changed_when: false
+  failed_when: false
+
+- name: Node.js {{ node_version }} をインストール
+  become: false
+  ansible.builtin.command: "/home/vagrant/.nodenv/bin/nodenv install {{ node_version }}"
+  environment:
+    PATH: "/home/vagrant/.nodenv/bin:{{ ansible_env.PATH }}"
+  when: node_version not in nodenv_installed_versions.stdout_lines
+
+- name: グローバルバージョンとして設定
+  become: false
+  ansible.builtin.command: "/home/vagrant/.nodenv/bin/nodenv global {{ node_version }}"
+  environment:
+    PATH: "/home/vagrant/.nodenv/bin:{{ ansible_env.PATH }}"
