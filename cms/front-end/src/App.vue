@@ -14,8 +14,7 @@ export default {
   setup() {
     return {
       Component: window.data.component_name,
-      fishData: window.data.component_data,
-      formData: window.data.form_data,
+      ComponentData: window.data.component_data,
     }
   }
 }
@@ -24,7 +23,7 @@ export default {
 <template>
   <div>
     <Navigation :location="Component"/>
-    <TestList v-if="Component === `TestList`" :fish_data="fishData" />
-    <TestForm v-if="Component === `TestForm`" :formData="formData"/>
+    <TestList v-if="Component === `TestList`" :fish_data="ComponentData" />
+    <TestForm v-if="Component === `TestForm`" :formData="ComponentData"/>
   </div>
 </template>
