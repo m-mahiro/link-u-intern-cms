@@ -19,7 +19,7 @@ switch ($request_uri) {
         break;
     }
     case '/postForm': {
-        $data = [];
+        $data = null;
         if (isset($_GET['id'])) {
             $data = $test_repo->fetch($_GET['id']);
         }
