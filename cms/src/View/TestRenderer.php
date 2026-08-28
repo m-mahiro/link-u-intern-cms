@@ -14,7 +14,10 @@ class TestRenderer {
         $this->twig = new Environment($this->loader);
     }
 
-    public function getPage($data): string {
-        return $this->twig->render('Test.twig', ['data' => $data]);
+    public function getPage($component_data, $component_name): string {
+        return $this->twig->render('Base.twig', [
+            'component_data' => $component_data,
+            'component_name' => $component_name,
+        ]);
     }
 }

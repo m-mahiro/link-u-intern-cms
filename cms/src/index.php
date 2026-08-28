@@ -1,3 +1,3 @@
 <?php
 
-require_once 'View/TestRenderer.php';
+require_once __DIR__ . '/Controller/TestController.php';

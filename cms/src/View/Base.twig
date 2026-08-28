@@ -3,7 +3,15 @@
 
 <script>
     window.data = {
-        component_data: {{ data | json_encode(
+        component_name: '{{ component_name }}',
+        component_data: {{ component_data | json_encode(
+            constant('JSON_UNESCAPED_UNICODE')
+            b-or constant('JSON_PRETTY_PRINT')
+            b-or constant('JSON_PRETTY_PRINT')
+            b-or constant('JSON_THROW_ON_ERROR')
+        )
+        | raw }},
+        form_data: {{ component_data | json_encode(
             constant('JSON_UNESCAPED_UNICODE')
             b-or constant('JSON_PRETTY_PRINT')
             b-or constant('JSON_PRETTY_PRINT')
